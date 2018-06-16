@@ -1,0 +1,17 @@
+# makefile for the apiext M extension
+#
+# The following libraries are needed:
+#   clibcep.lib, clibcer.lib, doscalls.lib, api.lib
+
+apiext.obj:  $*.c
+    cl /W3 /Gs /c /Asfu $*.c
+
+# make OS/2 version -----------------------------------
+
+apiext.dll: exthdrp.obj $*.obj
+    link /NOD /NOI $**,$*,nul,clibcep doscalls,$*.def;
+
+# make DOS version ------------------------------------
+
+apiext.exe: exthdr.obj $*.obj
+    link /NOD /NOI $**,$*,nul,clibcer api;
